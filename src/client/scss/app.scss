@@ -1,0 +1,68 @@
+$theme-colors: (
+    'success': rgba(211, 223, 219, 1),
+    'warning': rgba(236, 216, 177, 1),
+    'info': rgba(58, 161, 63, 0.87),
+    'primary': darkgrey
+);
+
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.font-wick {
+    font-family: 'Sedgwick Ave', cursive;
+}
+.font-open {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.card-img-wrapper .card-img-top {
+    z-index: 0;
+}
+
+.card-img-wrapper .card-text {
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 22%;
+    margin-right: 22%;
+    position: absolute;
+    z-index: 1;
+    font-size: 1.8em;
+}
+
+.card-img-top {
+    height: 29%;
+}
+
+.blog-title-img {
+    width: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    hyphens: auto;
+}
+
+body {
+    background: url('https://i2.wp.com/background4free.com/download/white_textile_wallpaper_427466034.jpg?q=100');
+}
+.header {
+    font-size: 5.2em;
+}
+
+.aboutdiv {
+    font-size: 1.25em;
+}
+
+.bck-gradient {
+    background-image: radial-gradient(white, rgba(236, 216, 177, 1));
+}
+
+.blog-content {
+    height: 150px;
+    width: 90%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    hyphens: auto;
+}
+
+.right-justify {
+    float: right
+}
