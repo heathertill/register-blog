@@ -33,7 +33,6 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
             setBlog(blog);
             let tag = await json(`/api/tags/${id}`);
             setTag(tag);
-            console.log('tag', tag)
         } catch (err) {
             console.log(err)
         }

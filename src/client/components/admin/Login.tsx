@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { json, SetAccessToken, User } from '../../utils/api';
+import { json, SetAccessToken, User, ClearAccessToken } from '../../utils/api';
 
 export interface LoginProps extends RouteComponentProps { }
 
@@ -31,10 +31,11 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
                 if (result.role === 'admin') {
                     setLoginStatus(true);
                     history.push('/');
-                } else if (result.role === 'guest') {
-                    setLoginStatus(false);
                 }
-            } 
+            } else {
+                setLoginStatus(false);
+                ClearAccessToken()
+            }
         } catch (err) {
             throw err
         }

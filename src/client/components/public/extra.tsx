@@ -1,28 +1,21 @@
 import * as React from 'react';
 import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
 
-interface FormProps extends ReactStripeElements.InjectedStripeProps { }
+class Form extends React.Component<IFormProps, IFormState>  {
 
-export interface FormState {
-    name: string,
-    amount: string,
-    charged: boolean
-}
-
-class Form extends React.Component<FormProps, FormState> {
-    constructor(props: FormProps) {
+    constructor(props: IFormProps) {
         super(props);
         this.state = {
             name: '',
             amount: '',
-            charged: false
-        };
+            charged: false,
+        }
     }
 
-    private alert: JSX.Element = null;
+    private alert: JSX.Element = null
     private donating: boolean = false;
 
-    handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (this.donating) return;
         try {
@@ -39,21 +32,23 @@ class Form extends React.Component<FormProps, FormState> {
             if (result) {
                 this.setState({ charged: true, amount: '', name: '' });
             } else {
-                this.setState({ charged: false })
+                this.setState({charged: false})
             }
-
+            
         } catch (err) {
-            this.setState({ charged: false })
+            this.setState({ charged: false})
             throw err;
         } finally {
             this.donating = false;
         }
     }
 
+   
     render() {
+
         if (this.state.charged === true) {
             this.alert = <div className="alert alert-danger p-1 m-3">Thanks for the donation!!!</div>
-        } else if (this.state.charged === false) {
+        } else if(this.state.charged === false) {
             <div className="alert alert-danger p-1 m-3">Error processing the donation!</div>
         }
         return (
@@ -77,7 +72,7 @@ class Form extends React.Component<FormProps, FormState> {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ amount: e.target.value })}
                     />
                     <label>Card Number</label>
-                    <CardNumberElement className="p-2 bg-white border border-dark" />
+                    <CardNumberElement  className="p-2 bg-white border border-dark" />
                     <div className="d-flex">
                         <div className="flex-fill mr-2">
                             <label>Expiration date</label>
@@ -94,6 +89,14 @@ class Form extends React.Component<FormProps, FormState> {
             </section>
         );
     }
+};
+
+interface IFormProps extends ReactStripeElements.InjectedStripeProps { }
+
+interface IFormState {
+    name: string,
+    amount: string,
+    charged: boolean
 }
 
 export default injectStripe(Form);

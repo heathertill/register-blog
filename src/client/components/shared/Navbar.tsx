@@ -3,7 +3,8 @@ import { useState, useEffect, useContext } from 'react';
 import { __RouterContext } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Tag } from '../public/OneBlog';
-import { User } from '../../utils/api';
+import { User, ClearAccessToken } from '../../utils/api';
+import console = require('console');
 
 export interface NavbarProps { }
 
@@ -11,6 +12,8 @@ const Navbar: React.SFC<NavbarProps> = () => {
 
     const { history } = useContext(__RouterContext);
     const [tags, setTags] = useState<Tag[]>([]);
+    const [login, setLogin] = useState(false);
+    const [id, setId] = useState(undefined);
 
     const getTags = async () => {
         try {
@@ -22,6 +25,27 @@ const Navbar: React.SFC<NavbarProps> = () => {
         }
     };
 
+    const renderLogout = () => {
+        if (User.userid !== null) {
+            return <button className="btn text-white" onClick={() => log()}>Logout</button>
+        } 
+    }
+
+    const log = () => {
+        ClearAccessToken();
+        setLogin(false);
+        location.reload()
+        
+    }
+
+    const handleLogStatus = () => {
+        if (login === true) {
+            return renderLogout()
+        } else if (login === false) {
+            return <Link className="text-white mr-3" to="/login">Admin</Link>
+        }
+    }
+
     const renderAddBlog = () => {
         if (User && User.role === 'admin') {
             return <Link className="text-white mr-3" to="/add">Add Blog</Link>
@@ -30,10 +54,8 @@ const Navbar: React.SFC<NavbarProps> = () => {
 
     useEffect(() => { getTags(); renderAddBlog() }, []);
 
-    const [id, setid] = useState(undefined);
-
     function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
-        setid(e.target.value)
+        setId(e.target.value)
         if (e.target.value === "0") {
             return;
         } else {
@@ -47,7 +69,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
                 <div className="navbar">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="text-white mr-3" to="/login">Admin</Link>
+                            {handleLogStatus()}
                         </li>
                         <li className="nav-item">
                             <Link className="text-white mr-3" to="/">All Blogs</Link>
@@ -75,6 +97,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
                 <div className="ml-auto">
                     <Link className="text-white mr-3" to="/email">Contact</Link>
                 </div>
+                {renderLogout()}
             </nav>
             <div className="row justify-content-md-center">
                 <div className="header font-wick col-md-12 p-2">

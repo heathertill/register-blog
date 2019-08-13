@@ -1,3 +1,5 @@
+import console = require('console');
+
 // import * as fetch from 'isomorphic-fetch';
 
 export let AccessToken: string = localStorage.getItem('token') || null;
@@ -53,3 +55,12 @@ export const SetAccessToken = (token: string, user: {} = { userid: undefined, ro
     localStorage.setItem('role', User.role);
 
 };
+
+export const ClearAccessToken = () => {
+    AccessToken = '';
+    if (localStorage) {
+        localStorage.clear()
+        console.log('localstorage', User.userid)
+    }
+
+}
