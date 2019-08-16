@@ -14,6 +14,7 @@ import ShowTags from './components/public/ShowTags';
 import Login from './components/admin/Login';
 import Donate from './components/public/Donate';
 import Email from './components/public/Email';
+import Register from './components/public/Register'
 
 const App: React.SFC<AppProps> = props => {
     return (
@@ -30,6 +31,7 @@ const App: React.SFC<AppProps> = props => {
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/donate' component={Donate} />
                     <Route exact path='/email' component={Email} />
+                    <Route exact path='/register' component={Register} />
                 </Switch>
             </main>
         </BrowserRouter>

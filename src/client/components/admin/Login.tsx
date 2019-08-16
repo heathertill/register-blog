@@ -8,7 +8,7 @@ export interface LoginProps extends RouteComponentProps { }
 const Login: React.SFC<LoginProps> = ({ history }) => {
 
     const isLoggedIn = async () => {
-        if (User && User.role === 'admin') {
+            if (User && User.role) {
             history.push('/')
         }
     };
@@ -28,7 +28,7 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
             });
             if (result) {
                 SetAccessToken(result.token, { userid: result.userid, role: result.role })
-                if (result.role === 'admin') {
+                    if (result.role) {
                     setLoginStatus(true);
                     history.push('/');
                 }

@@ -15,11 +15,11 @@ router.post('/', passport.authenticate('local'), async (req, res, next) => {
             role: req.user.role,
             userid: req.user.id
         });
-        // console.log('auth/login', token)
     } catch (err) {
         console.log(err);
         res.sendStatus(500)
     }
 });
+
 
 export default router;

@@ -2,32 +2,41 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { json, SetAccessToken, User, ClearAccessToken } from '../../utils/api';
-import console = require('console');
 
 
 
-export interface RegisterProps { }
+export interface RegisterProps extends RouteComponentProps { }
 
-const Register: React.SFC<RegisterProps> = () => {
+const Register: React.SFC<RegisterProps> = ({ history }) => {
 
-    const [firstName, setFirstName] = useState('')
+    const [firstname, setFirstname] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
 
+
+
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    
-        let data = {
-            firstName, email, password
+
+        let body = {
+            firstname, email, password
         }
         try {
-            let result = await json('auth/register', 'POST', data)
-            console.log('result', result)
+            let result = await json('auth/register', 'POST', body)
+            if (result) {
+                try {
+                    let result2 = await json('auth/login', 'POST', body)
+                    if (result2) {
+                        SetAccessToken(result2.token, { userid: result2.userid, role: result2.role })
+                    }
+                    history.push('/');
+                } catch (e) {
+                    throw e
+                }
+            }
         } catch (e) {
             throw e
         }
-
-
     }
 
     return (
@@ -36,12 +45,12 @@ const Register: React.SFC<RegisterProps> = () => {
                 <div className="col-md-8">
                     <form
                         className="form-group font-open bck-gradient border border-primary rounded shadow-lg mb-0 p-3"
-                    onSubmit={(e) => handleRegister(e)}
+                        onSubmit={(e) => handleRegister(e)}
                     >
-                        <label htmlFor="firstName">First Name</label>
+                        <label htmlFor="firstname">First Name</label>
                         <input
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
-                            type="text" name="firstName" className="form-control" value={firstName} />
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstname(e.target.value)}
+                            type="text" name="firstname" className="form-control" value={firstname} />
                         <label htmlFor="email">Email</label>
                         <input
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}

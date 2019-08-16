@@ -4,7 +4,6 @@ import { __RouterContext } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Tag } from '../public/OneBlog';
 import { User, ClearAccessToken } from '../../utils/api';
-import console = require('console');
 
 export interface NavbarProps { }
 
@@ -25,10 +24,12 @@ const Navbar: React.SFC<NavbarProps> = () => {
         }
     };
 
-    const renderLogout = () => {
+    const renderButton = () => {
         if (User.userid !== null) {
             return <button className="btn text-white" onClick={() => log()}>Logout</button>
-        } 
+        } else if (User.userid === null) {
+            return <Link className="text-white mr-3" to="/register">Register</Link>
+        }
     }
 
     const log = () => {
@@ -36,14 +37,6 @@ const Navbar: React.SFC<NavbarProps> = () => {
         setLogin(false);
         location.reload()
         
-    }
-
-    const handleLogStatus = () => {
-        if (login === true) {
-            return renderLogout()
-        } else if (login === false) {
-            return <Link className="text-white mr-3" to="/login">Admin</Link>
-        }
     }
 
     const renderAddBlog = () => {
@@ -69,7 +62,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
                 <div className="navbar">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            {handleLogStatus()}
+                        <Link className="text-white mr-3" to="/login">Admin</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="text-white mr-3" to="/">All Blogs</Link>
@@ -97,7 +90,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
                 <div className="ml-auto">
                     <Link className="text-white mr-3" to="/email">Contact</Link>
                 </div>
-                {renderLogout()}
+                {renderButton()}
             </nav>
             <div className="row justify-content-md-center">
                 <div className="header font-wick col-md-12 p-2">

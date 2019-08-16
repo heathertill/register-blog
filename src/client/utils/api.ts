@@ -1,4 +1,3 @@
-import console = require('console');
 
 // import * as fetch from 'isomorphic-fetch';
 
