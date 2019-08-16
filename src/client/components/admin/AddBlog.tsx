@@ -34,7 +34,9 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
     private saving: boolean = false;
 
     async componentWillMount() {
-        if (!User || User.userid === null || User.role !== 'admin') {
+        // if (!User || User.userid === null || User.role !== 'admin') {
+            if (!User || User.userid === null) {
+
             this.props.history.replace('/login');
         } else {
             let tags = await json('/api/tags');

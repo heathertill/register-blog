@@ -4,6 +4,7 @@ import { __RouterContext } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Tag } from '../public/OneBlog';
 import { User, ClearAccessToken } from '../../utils/api';
+import console = require('console');
 
 export interface NavbarProps { }
 
@@ -36,7 +37,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
         ClearAccessToken();
         setLogin(false);
         location.reload()
-        
+
     }
 
     const renderAddBlog = () => {
@@ -45,7 +46,13 @@ const Navbar: React.SFC<NavbarProps> = () => {
         }
     };
 
-    useEffect(() => { getTags(); renderAddBlog() }, []);
+    const renderLogin = () => {
+        if (login === false) {
+            return <Link className="text-white mr-3" to="/login">Login</Link>
+        }
+    }
+
+    useEffect(() => { getTags(); renderAddBlog(); handleLogin() }, []);
 
     function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
         setId(e.target.value)
@@ -56,13 +63,20 @@ const Navbar: React.SFC<NavbarProps> = () => {
         }
     };
 
+    const handleLogin = () => {
+        if (User.userid !== null) {
+            setLogin(true)
+        }
+    }
+
     return (
         <div className="card text-white sticky-top border-dark rounded my-5 bg-info shadow-lg">
             <nav className="navbar navbar-expand-md d-flex">
                 <div className="navbar">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                        <Link className="text-white mr-3" to="/login">Admin</Link>
+                            {renderLogin()}
+                            {/* <Link className="text-white mr-3" to="/login">Login</Link> */}
                         </li>
                         <li className="nav-item">
                             <Link className="text-white mr-3" to="/">All Blogs</Link>

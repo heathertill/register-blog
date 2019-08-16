@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { json, SetAccessToken, User, ClearAccessToken } from '../../utils/api';
+import console = require('console');
 
 
 
@@ -9,10 +10,10 @@ export interface RegisterProps extends RouteComponentProps { }
 
 const Register: React.SFC<RegisterProps> = ({ history }) => {
 
-    const [firstname, setFirstname] = useState('')
+    const [firstname, setFirstname] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
-
+    const [password, setPassword] = useState('');
+    const [registered, setRegistered] = useState(null)
 
 
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,11 +34,19 @@ const Register: React.SFC<RegisterProps> = ({ history }) => {
                 } catch (e) {
                     throw e
                 }
+            } else {
+                setRegistered(false)
             }
         } catch (e) {
             throw e
         }
-    }
+    };
+
+    const registerError = () => {
+        if (registered === false) {
+            return <div className="alert alert-danger p-1 m-3">There was a problem regestering! Please try again</div>
+        }
+    };
 
     return (
         <main className="container">
@@ -62,6 +71,7 @@ const Register: React.SFC<RegisterProps> = ({ history }) => {
                         <button
                             type="submit"
                             className="btn btn-primary btn-outline-light mt-3">Login</button>
+                        {registerError()}
                     </form>
                 </div>
             </section>
