@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { json, SetAccessToken, User, ClearAccessToken } from '../../utils/api';
-import console = require('console');
+import { json, SetAccessToken } from '../../utils/api';
 
 
 
