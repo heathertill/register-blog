@@ -4,7 +4,6 @@ import { __RouterContext } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Tag } from '../public/OneBlog';
 import { User, ClearAccessToken } from '../../utils/api';
-import console = require('console');
 
 export interface NavbarProps { }
 

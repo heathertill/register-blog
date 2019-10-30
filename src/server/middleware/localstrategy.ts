@@ -9,6 +9,7 @@ passport.serializeUser((user, done) => done(null, user));
 // if logged out and nolonger have token it removes the req.user(user) from the requests
 passport.deserializeUser((user, done) => done(null, user));
 
+// used by login to confirm valid user
 passport.use(new LocalStrategy.Strategy({
     usernameField: 'email',
     session: false
