@@ -31,7 +31,7 @@
         "@types/react-router-dom": "^4.3.3",
         "@types/react-stripe-elements": "^1.1.10",
         "@types/stripe": "^6.30.8",
-        "bcrypt": "^3.0.6",
+        "bcrypt": "^5.0.0",
         "bootstrap": "^4.3.1",
         "css-loader": "^1.0.1",
         "dotenv": "^8.0.0",
