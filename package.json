@@ -38,7 +38,7 @@
         "express": "^4.16.4",
         "jsonwebtoken": "^8.5.1",
         "knex": "^0.18.4",
-        "lodash": "^4.17.14",
+        "lodash": "^4.17.21",
         "mailgun-js": "^0.22.0",
         "moment": "^2.24.0",
         "morgan": "^1.9.1",
